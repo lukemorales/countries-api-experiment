@@ -2,13 +2,14 @@
 import { useMemo, createContext, useCallback } from 'react';
 
 import { PropsWithRequiredChildren } from '@common/types';
-import { useStateReducer } from '@hooks';
+import { useStateReducer } from '@hooks/useStateReducer';
 
 import { FormStepsContextData, FormStepsContextState } from './types';
 import { INITIAL_STATE } from './constants';
 
 export const FormStepsContext =
   createContext<FormStepsContextData | null>(null);
+FormStepsContext.displayName = 'FormStepsContext';
 
 export const FormStepsProvider = ({ children }: PropsWithRequiredChildren) => {
   const [{ step, form }, setState] =

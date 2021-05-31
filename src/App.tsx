@@ -1,19 +1,15 @@
-const App = () => (
-  <div className="App">
-    <header className="App-header">
-      <p>
-        Edit <code>src/App.tsx</code> and save to reload.
-      </p>
-      <a
-        className="App-link"
-        href="https://reactjs.org"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Learn React
-      </a>
-    </header>
-  </div>
-);
+import { useMemo } from 'react';
+
+import { useFormSteps } from '@hooks';
+import { selectStep } from '@hooks/useFormSteps/selectors';
+import { routes } from '@routes';
+
+const App = () => {
+  const step = useFormSteps(selectStep);
+
+  const Page = useMemo(() => routes[step], [step]);
+
+  return <Page />;
+};
 
 export default App;
