@@ -40,7 +40,7 @@ export const GlobalStyles = createGlobalStyle`
     body,
     input,
     button {
-      font: 1rem/1.48 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+      font: 1rem/1.48 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
         Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji',
         'Segoe UI Emoji', 'Segoe UI Symbol';
       font-weight: 400;
