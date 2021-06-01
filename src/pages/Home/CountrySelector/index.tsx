@@ -6,7 +6,7 @@ import { FiChevronRight } from 'react-icons/fi';
 
 import { CountriesResponse } from '@common/types/api/all';
 import { useFormSteps } from '@hooks';
-import { selectUpdateForm } from '@hooks/useFormSteps/selectors';
+import { selectCountry, selectUpdateForm } from '@hooks/useFormSteps/selectors';
 import { Button } from '@components';
 
 import * as S from './styles';
@@ -23,12 +23,17 @@ interface CountrySelectorProps {
 
 const CountrySelector = ({ countries }: CountrySelectorProps) => {
   const updateForm = useFormSteps(selectUpdateForm);
+  const contextCountry = useFormSteps(selectCountry);
 
-  const { handleSubmit, control, watch } = useForm<FormFields>();
+  const { handleSubmit, control, watch } = useForm<FormFields>({
+    defaultValues: {
+      country: contextCountry.name,
+    },
+  });
 
   const [canGoNext, setCanGoNext] = useState(false);
 
-  const countryValue = watch('country', '');
+  const countryValue = watch('country', contextCountry.name);
 
   const selectedCountry = useMemo(
     () => countries.find((nation) => nation.name === countryValue),
