@@ -12,8 +12,10 @@ export const FormStepsContext =
 FormStepsContext.displayName = 'FormStepsContext';
 
 export const FormStepsProvider = ({ children }: PropsWithRequiredChildren) => {
-  const [{ step, form }, setState] =
+  const [state, setState] =
     useStateReducer<FormStepsContextState>(INITIAL_STATE);
+
+  const { currentStep, form, selectedCountry } = state;
 
   const handleFormReset = useCallback(
     () => setState(INITIAL_STATE),
@@ -21,21 +23,34 @@ export const FormStepsProvider = ({ children }: PropsWithRequiredChildren) => {
   );
 
   const handleFormSubmit = useCallback(() => {
-    setState({ step: 2 });
+    setState({ currentStep: 2 });
 
-    console.table(form);
-    console.info(JSON.stringify(form, null, 2));
-  }, [setState, form]);
+    const request = {
+      country: selectedCountry,
+      ...form,
+    };
+
+    console.table(request);
+    console.info(JSON.stringify(request, null, 2));
+  }, [form, selectedCountry, setState]);
 
   const value = useMemo<FormStepsContextData>(
     () => ({
-      step,
+      currentStep,
       form,
+      selectedCountry,
       submitForm: handleFormSubmit,
       resetForm: handleFormReset,
       updateFormSteps: setState,
     }),
-    [step, form, handleFormSubmit, handleFormReset, setState],
+    [
+      currentStep,
+      form,
+      selectedCountry,
+      handleFormSubmit,
+      handleFormReset,
+      setState,
+    ],
   );
 
   return (

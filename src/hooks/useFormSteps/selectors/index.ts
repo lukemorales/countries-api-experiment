@@ -1,6 +1,7 @@
 import { FormStepsContextData } from '@contexts/form-steps/types';
 
-export const selectStep = ({ step }: FormStepsContextData) => step;
+export const selectCurrentStep = ({ currentStep }: FormStepsContextData) =>
+  currentStep;
 
 export const selectFormValues = ({ form }: FormStepsContextData) => form;
 

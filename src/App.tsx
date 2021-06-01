@@ -1,14 +1,14 @@
 import { useMemo } from 'react';
 
 import { useFormSteps } from '@hooks';
-import { selectStep } from '@hooks/useFormSteps/selectors';
+import { selectCurrentStep } from '@hooks/useFormSteps/selectors';
 import { routes } from '@routes';
 import { OuterBox } from '@components';
 
 const App = () => {
-  const step = useFormSteps(selectStep);
+  const currentStep = useFormSteps(selectCurrentStep);
 
-  const Page = useMemo(() => routes[step], [step]);
+  const Page = useMemo(() => routes[currentStep], [currentStep]);
 
   return (
     <OuterBox>

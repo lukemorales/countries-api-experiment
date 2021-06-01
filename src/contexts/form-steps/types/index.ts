@@ -5,7 +5,6 @@ import { StateAction } from '@hooks/useStateReducer/types';
 export type FormContextSteps = 0 | 1 | 2;
 
 export interface FormFields {
-  country: string;
   first_name: string;
   last_name: string;
   birth_date: string;
@@ -14,8 +13,9 @@ export interface FormFields {
 }
 
 export type FormStepsContextState = {
-  step: FormContextSteps;
   form: FormFields;
+  currentStep: FormContextSteps;
+  selectedCountry: string;
 };
 
 export interface FormStepsContextData extends FormStepsContextState {
