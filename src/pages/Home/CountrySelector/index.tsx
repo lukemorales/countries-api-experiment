@@ -2,10 +2,12 @@ import { useEffect, useMemo, useState } from 'react';
 
 import ReactSelect from 'react-select';
 import { useForm, Controller } from 'react-hook-form';
+import { FiChevronRight } from 'react-icons/fi';
 
 import { CountriesResponse } from '@common/types/api/all';
 import { useFormSteps } from '@hooks';
 import { selectUpdateForm } from '@hooks/useFormSteps/selectors';
+import { Button } from '@components';
 
 import * as S from './styles';
 
@@ -67,7 +69,7 @@ const CountrySelector = ({ countries }: CountrySelectorProps) => {
             {...field}
             options={options}
             maxMenuHeight={200}
-            placeholder="Select country"
+            label="Select country"
             onChange={(e: SelectOption) => field.onChange(e?.value)}
             value={options.find((nation) => nation.value === field.value)}
           />
@@ -78,9 +80,12 @@ const CountrySelector = ({ countries }: CountrySelectorProps) => {
         <S.CountryFlag src={selectedCountry.flag} alt={selectedCountry.name} />
       )}
 
-      <button disabled={!canGoNext} type="submit">
-        Continue
-      </button>
+      <Button
+        title="Continue"
+        icon={FiChevronRight}
+        disabled={!canGoNext}
+        type="submit"
+      />
     </S.Container>
   );
 };
