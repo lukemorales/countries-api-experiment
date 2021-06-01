@@ -90,6 +90,10 @@ export const GlobalStyles = createGlobalStyle`
       -webkit-tap-highlight-color: transparent;
     }
 
+    img {
+      image-rendering: pixelated;
+    }
+
     ul {
       list-style: none;
       text-align: left;
