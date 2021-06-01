@@ -29,6 +29,10 @@ export const Header = styled.header`
       font-size: 1.5rem;
       font-weight: 500;
     }
+
+    > p {
+      white-space: pre-wrap;
+    }
   `};
 `;
 
@@ -47,7 +51,7 @@ export const FormCompletion = styled.div<FormCompletionProps>`
     position: absolute;
     bottom: 0;
     left: -2.5rem;
-    width: ${(112.5 / 3) * currentStep}%;
+    width: ${40 * currentStep}%;
     height: 0.25rem;
     background: ${theme.colors.primary};
     transition: ${theme.transition.default.replace('180', '500')};

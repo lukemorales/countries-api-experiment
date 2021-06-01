@@ -19,12 +19,12 @@ const OuterBox = ({ children }: PropsWithRequiredChildren) => {
   const hasSelectedCountry = useFormSteps(selectHasSelectedCountry);
   const updateContext = useFormSteps(selectUpdateForm);
 
-  const goBack = () => updateContext({ currentStep: 0 });
-
   const { title, description } = useMemo(
     () => HEADER_CONTENT[currentStep],
     [currentStep],
   );
+
+  const goBack = () => updateContext({ currentStep: 0 });
 
   return (
     <S.Container>

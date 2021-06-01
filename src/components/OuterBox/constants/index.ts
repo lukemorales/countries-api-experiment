@@ -11,7 +11,6 @@ export const HEADER_CONTENT: HeaderContent = {
   },
   2: {
     title: 'Thank you',
-    description:
-      'Your employee was registered successfully. Check below the data sent to our system.',
+    description: `Your employee was registered successfully.\nCheck data sent to our system in the console.`,
   },
 };

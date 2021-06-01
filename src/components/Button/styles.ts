@@ -9,8 +9,8 @@ export const Container = styled.button`
     width: 100%;
     padding: 1rem;
     border-radius: 0.25rem;
-    color: ${readableColor(theme.colors.primary)};
-    background: ${theme.colors.primary};
+    color: ${readableColor(theme.colors.foreground)};
+    background: ${theme.colors.foreground};
     transition: ${theme.transition.default};
 
     > span + svg {
@@ -24,11 +24,11 @@ export const Container = styled.button`
 
     :not(:disabled) {
       :hover {
-        background: ${tint(0.075, theme.colors.primary)};
+        background: ${tint(0.075, theme.colors.foreground)};
       }
 
       :active {
-        background: ${shade(0.075, theme.colors.primary)};
+        background: ${shade(0.075, theme.colors.foreground)};
       }
     }
   `}
