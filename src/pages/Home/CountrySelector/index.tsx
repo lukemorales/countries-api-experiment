@@ -50,13 +50,16 @@ const CountrySelector = ({ countries }: CountrySelectorProps) => {
   );
 
   const handleFormSubmit = () => {
-    if (selectedCountry) {
-      updateForm({
-        currentStep: 1,
-        selectedCountry,
-      });
-    }
+    updateForm({
+      currentStep: 1,
+    });
   };
+
+  useEffect(() => {
+    if (selectedCountry) {
+      updateForm({ selectedCountry });
+    }
+  }, [updateForm, selectedCountry]);
 
   useEffect(() => {
     setCanGoNext(!!countryValue);

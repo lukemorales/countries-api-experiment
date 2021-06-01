@@ -7,7 +7,8 @@ import { PropsWithRequiredChildren } from '@common/types/app';
 import { useFormSteps } from '@hooks';
 import {
   selectCurrentStep,
-  selectResetForm,
+  selectUpdateForm,
+  selectHasSelectedCountry,
 } from '@hooks/useFormSteps/selectors';
 
 import { HEADER_CONTENT } from './constants';
@@ -15,7 +16,10 @@ import * as S from './styles';
 
 const OuterBox = ({ children }: PropsWithRequiredChildren) => {
   const currentStep = useFormSteps(selectCurrentStep);
-  const resetForm = useFormSteps(selectResetForm);
+  const hasSelectedCountry = useFormSteps(selectHasSelectedCountry);
+  const updateContext = useFormSteps(selectUpdateForm);
+
+  const goBack = () => updateContext({ currentStep: 0 });
 
   const { title, description } = useMemo(
     () => HEADER_CONTENT[currentStep],
@@ -26,7 +30,7 @@ const OuterBox = ({ children }: PropsWithRequiredChildren) => {
     <S.Container>
       <S.Header>
         {currentStep === 1 && (
-          <S.BackButton type="button" onClick={resetForm}>
+          <S.BackButton type="button" onClick={goBack}>
             <FiChevronLeft size="1.5rem" />
           </S.BackButton>
         )}
@@ -35,6 +39,8 @@ const OuterBox = ({ children }: PropsWithRequiredChildren) => {
 
         <h1>{title}</h1>
         <p>{description}</p>
+
+        <S.FormCompletion $step={currentStep + (hasSelectedCountry ? 1 : 0)} />
       </S.Header>
 
       {children}
