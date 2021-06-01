@@ -1,6 +1,7 @@
 import { Dispatch } from 'react';
 
 import { StateAction } from '@hooks/useStateReducer/types';
+import { Country } from '@common/types/api/all';
 
 export type FormContextSteps = 0 | 1 | 2;
 
@@ -15,7 +16,7 @@ export interface FormFields {
 export type FormStepsContextState = {
   form: FormFields;
   currentStep: FormContextSteps;
-  selectedCountry: string;
+  selectedCountry: Country;
 };
 
 export interface FormStepsContextData extends FormStepsContextState {
