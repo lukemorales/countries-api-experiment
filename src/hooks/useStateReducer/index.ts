@@ -1,6 +1,6 @@
 import { useReducer } from 'react';
 
-import { AnyObject } from '@common/types';
+import { AnyObject } from '@common/types/app';
 
 import { StateAction } from './types';
 

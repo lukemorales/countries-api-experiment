@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { useMemo, createContext, useCallback } from 'react';
 
-import { PropsWithRequiredChildren } from '@common/types';
+import { PropsWithRequiredChildren } from '@common/types/app';
 import { useStateReducer } from '@hooks/useStateReducer';
 
 import { FormStepsContextData, FormStepsContextState } from './types';
