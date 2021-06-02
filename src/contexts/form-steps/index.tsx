@@ -4,7 +4,11 @@ import { useMemo, createContext, useCallback } from 'react';
 import { PropsWithRequiredChildren } from '@common/types/app';
 import { useStateReducer } from '@hooks/useStateReducer';
 
-import { FormStepsContextData, FormStepsContextState } from './types';
+import {
+  FormFields,
+  FormStepsContextData,
+  FormStepsContextState,
+} from './types';
 import { INITIAL_STATE } from './constants';
 
 export const FormStepsContext =
@@ -15,42 +19,41 @@ export const FormStepsProvider = ({ children }: PropsWithRequiredChildren) => {
   const [state, setState] =
     useStateReducer<FormStepsContextState>(INITIAL_STATE);
 
-  const { currentStep, form, selectedCountry } = state;
+  const { currentStep, selectedCountry } = state;
 
   const handleFormReset = useCallback(
     () => setState(INITIAL_STATE),
     [setState],
   );
 
-  const handleFormSubmit = useCallback(() => {
-    setState({ currentStep: 2 });
+  const handleFormSubmit = useCallback(
+    (data: FormFields) => {
+      setState({ currentStep: 2 });
 
-    const request = {
-      country: selectedCountry,
-      ...form,
-    };
+      const request = {
+        ...data,
+        country: {
+          numericCode: selectedCountry.numericCode,
+          name: selectedCountry.name,
+        },
+      };
 
-    console.table(request);
-    console.info(JSON.stringify(request, null, 2));
-  }, [form, selectedCountry, setState]);
+      console.table(request);
+      console.info(JSON.stringify(request, null, 2));
+    },
+    [selectedCountry, setState],
+  );
 
   const value = useMemo<FormStepsContextData>(
     () => ({
       currentStep,
-      form,
+
       selectedCountry,
       submitForm: handleFormSubmit,
       resetForm: handleFormReset,
       updateFormSteps: setState,
     }),
-    [
-      currentStep,
-      form,
-      selectedCountry,
-      handleFormSubmit,
-      handleFormReset,
-      setState,
-    ],
+    [currentStep, selectedCountry, handleFormSubmit, handleFormReset, setState],
   );
 
   return (

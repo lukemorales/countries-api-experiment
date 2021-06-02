@@ -8,19 +8,18 @@ export type FormContextSteps = 0 | 1 | 2;
 export interface FormFields {
   first_name: string;
   last_name: string;
-  birth_date: string;
+  birthdate: string;
   holiday_allowance: number | null;
   [key: string]: string | number | null;
 }
 
 export type FormStepsContextState = {
-  form: FormFields;
   currentStep: FormContextSteps;
   selectedCountry: Country;
 };
 
 export interface FormStepsContextData extends FormStepsContextState {
   updateFormSteps: Dispatch<StateAction<FormStepsContextState>>;
-  submitForm: () => void;
+  submitForm: (data: FormFields) => void;
   resetForm: () => void;
 }

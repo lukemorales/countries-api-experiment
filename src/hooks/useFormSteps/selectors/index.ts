@@ -10,8 +10,6 @@ export const selectHasSelectedCountry = ({
   selectedCountry,
 }: FormStepsContextData) => !!selectedCountry.name;
 
-export const selectFormValues = ({ form }: FormStepsContextData) => form;
-
 export const selectUpdateForm = ({ updateFormSteps }: FormStepsContextData) =>
   updateFormSteps;
 

@@ -8,6 +8,7 @@ export const Container = styled.form`
 
     p {
       text-align: center;
+      margin-bottom: 1rem;
     }
 
     > button {
@@ -18,7 +19,7 @@ export const Container = styled.form`
 
 export const CountryFlag = styled.img`
   ${({ theme }) => css`
-    width: 8.5rem;
+    height: 5.75rem;
     display: block;
     margin: auto;
     border-radius: ${theme.radii.default};
