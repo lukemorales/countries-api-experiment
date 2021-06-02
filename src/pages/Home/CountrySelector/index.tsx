@@ -1,17 +1,15 @@
 import { useEffect, useMemo, useState } from 'react';
 
-import ReactSelect from 'react-select';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm, FormProvider } from 'react-hook-form';
 import { FiChevronRight } from 'react-icons/fi';
 
 import { CountriesResponse } from '@common/types/api/all';
 import { useFormSteps } from '@hooks';
 import { selectCountry, selectUpdateForm } from '@hooks/useFormSteps/selectors';
 import { Button } from '@components';
+import SelectInput from '@components/SelectInput';
 
 import * as S from './styles';
-
-type SelectOption = { value: string; label: string } | null;
 
 interface FormFields {
   country: string;
@@ -25,7 +23,7 @@ const CountrySelector = ({ countries }: CountrySelectorProps) => {
   const updateForm = useFormSteps(selectUpdateForm);
   const contextCountry = useFormSteps(selectCountry);
 
-  const { handleSubmit, control, watch } = useForm<FormFields>({
+  const formMethods = useForm<FormFields>({
     defaultValues: {
       country: contextCountry.name,
     },
@@ -33,7 +31,7 @@ const CountrySelector = ({ countries }: CountrySelectorProps) => {
 
   const [canGoNext, setCanGoNext] = useState(false);
 
-  const countryValue = watch('country', contextCountry.name);
+  const countryValue = formMethods.watch('country', contextCountry.name);
 
   const selectedCountry = useMemo(
     () => countries.find((nation) => nation.name === countryValue),
@@ -49,11 +47,7 @@ const CountrySelector = ({ countries }: CountrySelectorProps) => {
     [countries],
   );
 
-  const handleFormSubmit = () => {
-    updateForm({
-      currentStep: 1,
-    });
-  };
+  const handleFormSubmit = () => updateForm({ currentStep: 1 });
 
   useEffect(() => {
     if (selectedCountry) {
@@ -66,35 +60,27 @@ const CountrySelector = ({ countries }: CountrySelectorProps) => {
   }, [countryValue]);
 
   return (
-    <S.Container onSubmit={handleSubmit(handleFormSubmit)}>
-      <p>Select the country your employee is located:</p>
+    <FormProvider {...formMethods}>
+      <S.Container onSubmit={formMethods.handleSubmit(handleFormSubmit)}>
+        <p>Select the country your employee is located:</p>
 
-      <Controller
-        name="country"
-        control={control}
-        render={({ field }) => (
-          <ReactSelect
-            {...field}
-            options={options}
-            maxMenuHeight={200}
-            label="Select country"
-            onChange={(e: SelectOption) => field.onChange(e?.value)}
-            value={options.find((nation) => nation.value === field.value)}
+        <SelectInput name="country" label="Select Country" options={options} />
+
+        {selectedCountry && (
+          <S.CountryFlag
+            src={selectedCountry.flag}
+            alt={selectedCountry.name}
           />
         )}
-      />
 
-      {selectedCountry && (
-        <S.CountryFlag src={selectedCountry.flag} alt={selectedCountry.name} />
-      )}
-
-      <Button
-        title="Continue"
-        icon={FiChevronRight}
-        disabled={!canGoNext}
-        type="submit"
-      />
-    </S.Container>
+        <Button
+          title="Continue"
+          icon={FiChevronRight}
+          disabled={!canGoNext}
+          type="submit"
+        />
+      </S.Container>
+    </FormProvider>
   );
 };
 
